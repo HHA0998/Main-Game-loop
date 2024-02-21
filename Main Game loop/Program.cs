@@ -20,75 +20,86 @@ namespace Main_Game_loop
             int ii = 0;
 
             //keep running while "isRunning == true"
-            while (isRunning)
-            {
-                number = rnd.Next(1, 10);
-                if ( ii < 1)
-                {
-                    ii++;
-                    Console.WriteLine("Would you like to ender debug mode?");
-                    Console.WriteLine();
-                    string userChoiceDebug = Console.ReadLine();
-                    if (userChoiceDebug == "y" || userChoiceDebug == "Y")
-                    {
-                        debug = true;
-                    }
-                    else
-                        debug = false;
-                }
 
-                // promt the user to start guess ournumber
-                if (debug == true)
+                while (isRunning)
                 {
-                    startMsg = "debuggin on || ";
-                }
-                else
-                {
-                    startMsg = "";
-                }
-                Console.WriteLine(startMsg + "guess my number within 5 turns!");
-
-                for (int i = 0; i < 5; i++)
-                {
-                    int guess = int.Parse(Console.ReadLine());
-
-                    if (guess == number)
+                    number = rnd.Next(1, 100);
+                    if (ii < 1)
                     {
-                        Console.WriteLine("congrats! you guessed correct");
-                        break;
-                    }
-                    else if (guess > number) // player guessed too high 
-                    {
-                        Console.WriteLine("lower...");
-                        if (debug == true)
+                        ii++;
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.WriteLine("\nWould you like to enter debug mode?\n");
+                        Console.ResetColor();
+                        string userChoiceDebug = Console.ReadLine();
+                        if (userChoiceDebug == "y" || userChoiceDebug == "Y")
                         {
-                            Console.Write("number is " + number + " btw.");
-                            Console.WriteLine();
+                            debug = true;
+                            Console.Clear();
                         }
+                        else
+                            debug = false;
+                            Console.Clear();
+                    }
+
+                    // promt the user to start guess ournumber
+                    if (debug == true)
+                    {
+                        startMsg = "debuggin on || ";
                     }
                     else
                     {
-                        Console.WriteLine("higher");
-                        if (debug == true)
+                        startMsg = "";
+                    }
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine(startMsg + "guess my number within 10 turns! 1-100 starting now!\n");
+                    Console.ResetColor();
+                    for (int i = 0; i < 10; i++)
+
+                    {
+                        int guess = int.Parse(Console.ReadLine());
+
+                        if (guess == number)
                         {
-                            Console.Write("number is " + number + " btw.");
-                            Console.WriteLine();
+                            Console.ForegroundColor = ConsoleColor.Yellow;
+                            Console.Clear();
+                            Console.WriteLine("\ncongrats! you guessed correct\n");
+                            Console.ResetColor();
+                            break;
+                        }
+                        else if (guess > number) // player guessed too high 
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("^ lower...\n");
+                            Console.ResetColor();
+                            if (debug == true)
+                            {
+                                Console.Write("\nnumber is " + number + " btw.\n");
+                            }
+                        }
+                        else
+                        {
+                            Console.ForegroundColor = ConsoleColor.Green;
+                            Console.WriteLine("^ higher\n");
+                            Console.ResetColor();
+                            if (debug == true)
+                            {
+                                Console.Write("\nnumber is " + number + " btw.\n");
+                            }
                         }
                     }
-                }
 
-                //ask the player if the want to play again
-                Console.WriteLine("would you like to play again? (y/n) ?");
-                string userChoice = Console.ReadLine();
-                if (userChoice == "y" || userChoice == "Y")
-                {
-                    isRunning = true;
+                    //ask the player if the want to play again
+                    Console.WriteLine("\nwould you like to play again? (y/n) ?\n");
+                    string userChoice = Console.ReadLine();
+                    if (userChoice == "y" || userChoice == "Y")
+                    {
+                        Console.Clear();
+                        isRunning = true;
+                    }
+                    else
+                        isRunning = false;
                 }
-                else
-                    isRunning = false;
+                Console.WriteLine("\nthanks for playing\n");
             }
-            Console.WriteLine("thanks for playing");
-            Console.ReadKey();
-        }
     }
 }
